@@ -15,6 +15,22 @@ tasksListElement.addEventListener(`dragend`, (evt) => {
 });
 
 
+// для проверки находится ли курсор на центром элемента и нужно ли делать замену
+const getNextElement = (cursorPosition, currentElement) => {
+  // Получаем объект с размерами и координатами
+  const currentElementCoord = currentElement.getBoundingClientRect();
+  // Находим вертикальную координату центра текущего элемента
+  const currentElementCenter = currentElementCoord.y + currentElementCoord.height / 2;
+
+  // Если курсор выше центра элемента, возвращаем текущий элемент
+  // В ином случае — следующий DOM-элемент
+  const nextElement = (cursorPosition < currentElementCenter) ?
+      currentElement :
+      currentElement.nextElementSibling;
+
+  return nextElement;
+};
+
 tasksListElement.addEventListener(`dragover`, (evt) => {
   // Разрешаем сбрасывать элементы в эту область
   evt.preventDefault();
@@ -34,10 +50,19 @@ tasksListElement.addEventListener(`dragover`, (evt) => {
     return;
   }
 
-  // Находим элемент, перед которым будем вставлять
-  const nextElement = (currentElement === activeElement.nextElementSibling) ?
-      currentElement.nextElementSibling :
-      currentElement;
+ // evt.clientY — вертикальная координата курсора в момент,
+  // когда сработало событие
+  const nextElement = getNextElement(evt.clientY, currentElement);
+
+  // Проверяем, нужно ли менять элементы местами
+  if (
+    nextElement && 
+    activeElement === nextElement.previousElementSibling ||
+    activeElement === nextElement
+  ) {
+    // Если нет, выходим из функции, чтобы избежать лишних изменений в DOM
+    return;
+  }
 
   // Вставляем activeElement перед nextElement
   tasksListElement.insertBefore(activeElement, nextElement);
