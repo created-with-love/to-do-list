@@ -1,0 +1,65 @@
+body {
+  font-family: "Sansita Swashed", cursive;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #264653;
+
+  background-color: #2a9d8f;
+}
+
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tasks__title {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+.tasks__title {
+  font-family: "Dancing Script", cursive;
+  margin: 50px 0 20px 0;
+
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.tasks__list {
+  margin: 0 auto;
+  padding: 0;
+  width: 265px;
+  list-style: none;
+}
+
+.tasks__item {
+  display: block;
+  max-width: 250px;
+
+  transition: background-color 0.5s;
+  margin-bottom: 5px;
+  padding: 5px;
+
+  text-align: center;
+  border: 2px dashed #e76f51;
+  border-radius: 10px;
+  cursor: move;
+  background-color: #f4a261;
+
+  transition: background-color 0.5s;
+}
+
+.tasks__item:last-child {
+  margin-bottom: 0;
+}
+
+.selected {
+  opacity: 0.6;
+}
+
+
+/*# sourceMappingURL=/styles.956d002c.css.map */
